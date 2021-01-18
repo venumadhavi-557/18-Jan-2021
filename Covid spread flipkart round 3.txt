@@ -1,0 +1,36 @@
+COVID SPREAD
+
+class Solution{
+     public int helpaterp(int[][] h) {
+        LinkedList<int[]> queue = new LinkedList();
+        int c = 0;
+        for (int i = 0; i < h.length; i++){
+            for (int j = 0; j <h[0].length; j++){
+                if (h[i][j] == 2)
+                    queue.add(new int[]{i, j});
+                if (h[i][j] == 1)
+                    c ++;
+            }
+        }
+        int res = 0;
+        int [][] directions = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+        while(!queue.isEmpty() && c > 0){
+            res ++;
+            int size = queue.size();
+            while(size > 0){
+                int [] xy = queue.poll();
+                for(int [] d : directions){
+                    int x = xy[0] + d[0];
+                    int y = xy[1] + d[1];
+                    if (x < 0 || y < 0 || x >= h.length || y >= h[0].length || h[x][y] == 0 || h[x][y] == 2)
+                        continue;
+                    queue.add(new int []{x, y});
+                    h[x][y] = 2;
+                    c --;
+                } 
+                size --;
+            }
+        }
+        return c == 0 ? res : -1;
+    }
+}

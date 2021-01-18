@@ -1,0 +1,40 @@
+IS GRAPH BIPARTITE
+
+class Solution {
+    public boolean isBipartite(int[][] graph) {
+        int vert=graph.length;
+        int[] color=new int[vert];
+        LinkedList<Integer> queue=new LinkedList<Integer>();
+        for(int i=0;i<vert;i++)
+        {
+            if(color[i]!=0)
+            {
+                continue;
+            }
+            color[i]=1;
+            queue.add(i);
+            while(queue.isEmpty()==false)
+            {
+                int cur=queue.poll();
+                for(int j=0;j<graph[cur].length;j++)
+                {
+                    int k=graph[cur][j];
+                    if(color[k]==0)
+                    {
+                        queue.add(k);
+                        color[k]=(color[cur]==1)?2:1;
+                    }
+                    else
+                    {
+                        if(color[k]==color[cur])
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+        
+    }
+}
